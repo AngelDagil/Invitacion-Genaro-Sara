@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Cuenta Regresiva</title>
+
+<style>
+body {
+    background: black;
+    color: white;
+    text-align: center;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    margin-top: 20px;
+}
+
+/* ================= TÍTULO PRINCIPAL ================= */
+.titulo-principal {
+    margin-bottom: 25px;
+}
+
+.titulo-principal h1 {
+    font-size: 38px;
+    letter-spacing: 4px;
+    color: #f7e087;
+    margin: 0;
+}
+
+.titulo-principal p {
+    font-size: 18px;
+    letter-spacing: 2px;
+    margin-top: 8px;
+    font-style: italic;
+    color: #ffffff;
+}
+
+/* ==================== SLIDER ==================== */
+.slider {
+    width: 360px;
+    height: 360px;
+    margin: auto;
+    overflow: hidden;
+    border-radius: 18px;
+    border: 5px solid #d4af37;
+    box-shadow: 0 0 8px #d4af37, 0 0 15px #e6c763, 0 0 25px #f7e087;
+}
+
+.slides {
+    display: flex;
+    width: 500%;
+    animation: slideAuto 25s infinite ease-in-out;
+}
+
+.slide img {
+    width: 360px;
+    height: 360px;
+    object-fit: cover;
+}
+
+@keyframes slideAuto {
+    0%,12% { margin-left: 0; }
+    17%,32% { margin-left: -100%; }
+    37%,52% { margin-left: -200%; }
+    57%,72% { margin-left: -300%; }
+    77%,100% { margin-left: -400%; }
+}
+
+/* ================= TEXTO ================= */
+.typing-container {
+    max-width: 900px;
+    margin: 45px auto 25px;
+    padding: 20px;
+    text-align: left;
+}
+
+#typing {
+    white-space: pre-line;
+    font-size: 18px;
+    line-height: 1.6;
+}
+
+/* ================= CONTADOR ================= */
+.contador-box {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.item {
+    background: #111;
+    padding: 20px;
+    width: 140px;
+    height: 120px;
+    border-radius: 10px;
+    border: 2px solid white;
+    position: relative;
+}
+
+.num {
+    font-size: 32px;
+    font-weight: bold;
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.label {
+    font-size: 14px;
+    color: #ccc;
+    position: absolute;
+    bottom: 5px;
+    width: 100%;
+}
+
+/* ===== ANIMACIÓN CORAZÓN ===== */
+.to-heart { opacity: 0; transform: translate(-50%, -50%) scale(0.3); }
+.heart-anim { opacity: 1; transform: translate(-50%, -50%) scale(1.3); transition: all .25s ease; }
+.fade-in { opacity: 1; transform: translate(-50%, -50%) scale(1); transition: all .25s ease; }
+
+/* ================= BOTÓN CORAZÓN ================= */
+.btn-area { margin-top: 25px; }
+
+#restartBtn {
+    background: none;
+    border: 2px solid white;
+    color: white;
+    font-size: 26px;
+    padding: 12px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: transform .2s ease;
+}
+
+#restartBtn:hover { transform: scale(1.2); }
+
+/* ================= UBICACIÓN ================= */
+#ubicacion {
+    display: none;
+    margin: 50px auto 30px;
+    width: 360px;
+}
+
+#ubicacion h2 {
+    font-size: 26px;
+    letter-spacing: 3px;
+    margin-bottom: 15px;
+    color: #f7e087;
+}
+
+#qr-box {
+    width: 360px;
+    height: 360px;
+    border: 5px solid #d4af37;
+    border-radius: 20px;
+    box-shadow: 0 0 10px #d4af37, 0 0 20px #f7e087;
+    overflow: hidden;
+}
+
+#qr-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* ================= BOTONES ================= */
+#calendarBtn, #whatsappBtn {
+    margin-top: 15px;
+    background: none;
+    border: 2px solid #d4af37;
+    color: #f7e087;
+    padding: 12px 18px;
+    font-size: 16px;
+    border-radius: 14px;
+    cursor: pointer;
+    width: 100%;
+    transition: all .25s ease;
+}
+
+#calendarBtn:hover, #whatsappBtn:hover {
+    background: #d4af37;
+    color: black;
+    transform: scale(1.03);
+}
+
+/* ================= REGALO ================= */
+#regalo {
+    display: none;
+    border: 2px solid white;
+    border-radius: 15px;
+    max-width: 700px;
+    margin: 40px auto 80px;
+    padding: 30px;
+}
+
+#regalo img {
+    width: 90px;
+    margin-bottom: 10px;
+}
+
+#regalo h3 {
+    font-size: 28px;
+    margin-bottom: 10px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- TÍTULO -->
+<div class="titulo-principal">
+    <h1>Genaro & Sara</h1>
+    <p>Celebramos el Sacramento del Matrimonio</p>
+</div>
+
+<!-- SLIDER -->
+<div class="slider">
+    <div class="slides">
+        <div class="slide"><img src="https://res.cloudinary.com/dwhywqylf/image/upload/v1765552185/WhatsApp_Image_2025-12-10_at_11.32.17_AM_l5q6dn.jpg"></div>
+        <div class="slide"><img src="https://res.cloudinary.com/dwhywqylf/image/upload/v1765552217/WhatsApp_Image_2025-12-11_at_3.37.15_PM_nqmdae.jpg"></div>
+        <div class="slide"><img src="https://res.cloudinary.com/dwhywqylf/image/upload/v1765552225/WhatsApp_Image_2025-12-11_at_3.38.28_PM_qqv4vf.jpg"></div>
+        <div class="slide"><img src="https://res.cloudinary.com/dwhywqylf/image/upload/v1765552234/WhatsApp_Image_2025-12-11_at_3.40.52_PM_qonnqp.jpg"></div>
+        <div class="slide"><img src="https://res.cloudinary.com/dwhywqylf/image/upload/v1765552245/WhatsApp_Image_2025-12-11_at_3.41.16_PM_rubiom.jpg"></div>
+    </div>
+</div>
+
+<!-- TEXTO -->
+<div class="typing-container">
+    <p id="typing"></p>
+</div>
+
+<h1>Cuenta Regresiva</h1>
+
+<!-- CONTADOR -->
+<div class="contador-box">
+    <div class="item"><span id="dias" class="num">0</span><div class="label">Días</div></div>
+    <div class="item"><span id="horas" class="num">0</span><div class="label">Horas</div></div>
+    <div class="item"><span id="minutos" class="num">0</span><div class="label">Min</div></div>
+    <div class="item"><span id="segundos" class="num">0</span><div class="label">Seg</div></div>
+</div>
+
+<!-- BOTÓN CORAZÓN -->
+<div class="btn-area">
+    <span>Presiona el corazón</span><br>
+    <button id="restartBtn">🤍</button>
+</div>
+
+<!-- UBICACIÓN -->
+<div id="ubicacion">
+    <h2>UBICACIÓN</h2>
+    <div id="qr-box">
+        <img src="https://res.cloudinary.com/dwhywqylf/image/upload/v1765577026/image_11_jx1ags.jpg">
+    </div>
+    <button id="calendarBtn" onclick="descargarICS()">📅 Agregar la fecha al calendario</button>
+    <button id="whatsappBtn" onclick="confirmarWhatsApp()">🟢 Confirmar asistencia por WhatsApp</button>
+</div>
+
+<!-- REGALO -->
+<div id="regalo">
+    <img src="https://cdn-icons-png.flaticon.com/512/2541/2541988.png">
+    <h3>Regalo</h3>
+    <p>Si deseas hacernos un obsequio o apoyarnos con algo, agradecemos de todo corazón que sea en efectivo.</p>
+</div>
+
+<script>
+let fechaObjetivo = new Date("February 7, 2026 12:00:00").getTime();
+
+function actualizarElemento(id, valor) {
+    let el = document.getElementById(id);
+    if (el.innerHTML != valor) {
+        el.classList.add("to-heart");
+        setTimeout(() => {
+            el.textContent = "🤍";
+            el.classList.add("heart-anim");
+            setTimeout(() => {
+                el.classList.remove("heart-anim","to-heart");
+                el.textContent = valor;
+                el.classList.add("fade-in");
+                setTimeout(()=>el.classList.remove("fade-in"),250);
+            },300);
+        },150);
+    }
+}
+
+setInterval(()=>{
+    let d = fechaObjetivo - new Date().getTime();
+    actualizarElemento("dias", Math.floor(d/(1000*60*60*24)));
+    actualizarElemento("horas", Math.floor((d%(1000*60*60*24))/(1000*60*60)));
+    actualizarElemento("minutos", Math.floor((d%(1000*60*60))/(1000*60)));
+    actualizarElemento("segundos", Math.floor((d%(1000*60))/1000));
+},1000);
+
+const texto = `
+Agradecemos profundamente el cariño, la amistad y el apoyo que siempre nos han brindado a lo
+largo de nuestras vidas.
+
+Cada uno de ustedes ha formado parte de nuestra historia, y por eso, no podríamos imaginar este
+día tan importante sin su presencia.
+
+Hoy celebramos el amor, la unión y el inicio de una nueva etapa, rodeados de las personas que más
+queremos.
+
+Compartir este momento con ustedes hace que nuestro sueño sea aún más especial, porque cada
+sonrisa, cada palabra y cada abrazo nos llenan de alegría y gratitud.
+
+Gracias por acompañarnos, por su afecto sincero y por ser testigos de este día que marcará el
+comienzo de nuestra vida juntos.
+
+
+Su compañía es, sin duda, el mejor regalo que podemos recibir.
+
+Con todo nuestro amor y agradecimiento Genaro y Sara.
+`;
+
+let i=0, escribiendo=false;
+
+function escribir(){
+    if(escribiendo) return;
+    escribiendo=true;
+    i=0;
+    typing.innerHTML="";
+    ubicacion.style.display="none";
+    regalo.style.display="none";
+    escribirTexto();
+}
+
+function escribirTexto(){
+    if(i<texto.length){
+        typing.innerHTML+=texto.charAt(i++);
+        setTimeout(escribirTexto,40);
+    } else {
+        escribiendo=false;
+        ubicacion.style.display="block";
+        regalo.style.display="block";
+    }
+}
+
+restartBtn.addEventListener("click", escribir);
+
+function descargarICS() {
+    const ics = `BEGIN:VCALENDAR
+VERSION:2.0
+BEGIN:VEVENT
+DTSTART:20260207T120000
+DTEND:20260207T130000
+SUMMARY:Boda Genaro y Sara
+END:VEVENT
+END:VCALENDAR`;
+    const a=document.createElement("a");
+    a.href=URL.createObjectURL(new Blob([ics],{type:"text/calendar"}));
+    a.download="boda.ics";
+    a.click();
+}
+
+function confirmarWhatsApp() {
+    const msg = encodeURIComponent("Gracias por la invitación. Confirmo mi asistencia a su boda.");
+    window.open("https://wa.me/50255341683?text="+msg,"_blank");
+}
+</script>
+
+</body>
+</html>
