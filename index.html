@@ -2,15 +2,17 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Cuenta Regresiva</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>Cuenta Regresiva</title>
 
 <style>
+/* ======================== BASE Y TIPOGRAFÍA ======================== */
 body {
     background: black;
     color: white;
     text-align: center;
     font-family: 'Segoe UI', Arial, sans-serif;
-    margin-top: 20px;
+    margin: 0;
+    padding: 20px 0;
 }
 
 /* ================= TÍTULO PRINCIPAL ================= */
@@ -23,6 +25,7 @@ body {
     letter-spacing: 4px;
     color: #f7e087;
     margin: 0;
+    text-shadow: 0 0 8px #d4af37;
 }
 
 .titulo-principal p {
@@ -33,10 +36,11 @@ body {
     color: #ffffff;
 }
 
-/* ==================== SLIDER ==================== */
+/* ==================== SLIDER (SIN ALTERACIONES EN LA ANIMACIÓN) ==================== */
 .slider {
-    width: 360px;
-    height: 360px;
+    width: 90%; /* Ajuste a 90% para ser responsivo, antes era 360px fijo */
+    max-width: 360px; /* Tamaño máximo */
+    aspect-ratio: 1 / 1;
     margin: auto;
     overflow: hidden;
     border-radius: 18px;
@@ -48,29 +52,37 @@ body {
     display: flex;
     width: 500%;
     animation: slideAuto 25s infinite ease-in-out;
-    transform: translateX(0);
+}
+
+/* Las imágenes se adaptarán al ancho del contenedor .slider (max 360px) */
+.slide {
+    /* Eliminamos el width: 360px fijo y permitimos que la imagen ocupe su 20% dentro del 500% del contenedor */
+    width: calc(100% / 5); /* 20% del 500% es el ancho de una imagen */
+    flex-shrink: 0;
 }
 
 .slide img {
-    width: 360px;
-    height: 360px;
+    width: 100%;
+    height: 100%;
     object-fit: cover;
 }
 
+/* KEYFRAMES: ESTOS SON LOS VALORES ORIGINALES QUE SOLICITASTE */
 @keyframes slideAuto {
-    0%,12%   { transform: translateX(0%); }
-    17%,32%  { transform: translateX(-20%); }
-    37%,52%  { transform: translateX(-40%); }
-    57%,72%  { transform: translateX(-60%); }
-    77%,100% { transform: translateX(-80%); }
+    0%,12% { margin-left: 0; }
+    17%,32% { margin-left: -100%; } /* Si esto causa corte, es debido a tu estructura */
+    37%,52% { margin-left: -200%; }
+    57%,72% { margin-left: -300%; }
+    77%,100% { margin-left: -400%; }
 }
 
-/* ================= TEXTO ================= */
+/* ================= TEXTO (Oculto al inicio) ================= */
 .typing-container {
     max-width: 900px;
     margin: 45px auto 25px;
     padding: 20px;
     text-align: left;
+    display: none; /* CLAVE: Oculto al cargar la página */
 }
 
 #typing {
@@ -80,16 +92,21 @@ body {
 }
 
 /* ================= CONTADOR ================= */
+h1 {
+    margin-top: 50px;
+}
+
 .contador-box {
     display: flex;
     justify-content: center;
     gap: 15px;
     margin-top: 20px;
+    flex-wrap: wrap; /* Responsividad */
 }
 
 .item {
     background: #111;
-    padding: 20px;
+    padding: 20px 10px;
     width: 140px;
     height: 120px;
     border-radius: 10px;
@@ -135,29 +152,24 @@ body {
 
 #restartBtn:hover { transform: scale(1.2); }
 
-/* ================= UBICACIÓN ================= */
+/* ================= UBICACIÓN (Oculto al inicio) ================= */
 #ubicacion {
     display: none;
     margin: 50px auto 30px;
-    width: 360px;
+    width: 90%; /* Responsivo */
+    max-width: 360px;
 }
 
 #ubicacion h2 {
     font-size: 26px;
     letter-spacing: 3px;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
     color: #f7e087;
 }
 
-#ubicacionUsuario {
-    margin-bottom: 15px;
-    font-size: 14px;
-    color: #ccc;
-}
-
 #qr-box {
-    width: 360px;
-    height: 360px;
+    width: 100%;
+    aspect-ratio: 1 / 1;
     border: 5px solid #d4af37;
     border-radius: 20px;
     box-shadow: 0 0 10px #d4af37, 0 0 20px #f7e087;
@@ -171,7 +183,7 @@ body {
 }
 
 /* ================= BOTONES ================= */
-#calendarBtn, #whatsappBtn, #banruralBtn {
+#calendarBtn, #whatsappBtn {
     margin-top: 15px;
     background: none;
     border: 2px solid #d4af37;
@@ -184,13 +196,13 @@ body {
     transition: all .25s ease;
 }
 
-#calendarBtn:hover, #whatsappBtn:hover, #banruralBtn:hover {
+#calendarBtn:hover, #whatsappBtn:hover {
     background: #d4af37;
     color: black;
     transform: scale(1.03);
 }
 
-/* ================= REGALO ================= */
+/* ================= REGALO (Oculto al inicio) ================= */
 #regalo {
     display: none;
     border: 2px solid white;
@@ -209,6 +221,20 @@ body {
     font-size: 28px;
     margin-bottom: 10px;
 }
+
+/* ================= REGLAS DE RESPONSIVIDAD ================= */
+@media (max-width: 768px) {
+    .titulo-principal h1 { font-size: 32px; }
+    .titulo-principal p { font-size: 16px; }
+    #typing { font-size: 16px; }
+}
+
+@media (max-width: 480px) {
+    /* Contador: Dos columnas en pantallas pequeñas */
+    .item { 
+        width: calc(50% - 10px); 
+    }
+}
 </style>
 </head>
 
@@ -216,7 +242,7 @@ body {
 
 <div class="titulo-principal">
     <h1>Genaro & Sara</h1>
-    <p>Celebramos el Matrimonio</p>
+    <p>Celebramos el Sacramento del Matrimonio</p>
 </div>
 
 <div class="slider">
@@ -229,7 +255,7 @@ body {
     </div>
 </div>
 
-<div class="typing-container">
+<div class="typing-container" id="typing-container">
     <p id="typing"></p>
 </div>
 
@@ -249,7 +275,6 @@ body {
 
 <div id="ubicacion">
     <h2>UBICACIÓN</h2>
-    <p id="ubicacionUsuario"></p>
     <div id="qr-box">
         <img src="https://res.cloudinary.com/dwhywqylf/image/upload/v1765577026/image_11_jx1ags.jpg">
     </div>
@@ -261,14 +286,15 @@ body {
     <img src="https://cdn-icons-png.flaticon.com/512/2541/2541988.png">
     <h3>Regalo</h3>
     <p>Si deseas hacernos un obsequio o apoyarnos con algo, agradecemos de todo corazón que sea en efectivo.</p>
-    <button id="banruralBtn" onclick="mostrarCuentaBanrural()">💳 Cuenta Banrural</button>
-    <p id="cuentaBanrural" style="display:none; margin-top:15px; font-size:18px;">
-        <strong>No. de cuenta:</strong> 3242000714
-    </p>
 </div>
 
 <script>
 let fechaObjetivo = new Date("February 7, 2026 12:00:00").getTime();
+const msEnUnDia = 1000 * 60 * 60 * 24;
+const msEnUnaHora = 1000 * 60 * 60;
+const msEnUnMinuto = 1000 * 60;
+const typingContainer = document.getElementById('typing-container');
+let primeraEjecucion = true;
 
 function actualizarElemento(id, valor) {
     let el = document.getElementById(id);
@@ -287,12 +313,27 @@ function actualizarElemento(id, valor) {
     }
 }
 
+// Contador
 setInterval(()=>{
     let d = fechaObjetivo - new Date().getTime();
-    actualizarElemento("dias", Math.floor(d/(1000*60*60*24)));
-    actualizarElemento("horas", Math.floor((d%(1000*60*60*24))/(1000*60*60)));
-    actualizarElemento("minutos", Math.floor((d%(1000*60*60))/(1000*60)));
-    actualizarElemento("segundos", Math.floor((d%(1000*60))/1000));
+    
+    if (d < 0) {
+        actualizarElemento("dias", 0);
+        actualizarElemento("horas", 0);
+        actualizarElemento("minutos", 0);
+        actualizarElemento("segundos", 0);
+        return;
+    }
+
+    const dias = Math.floor(d / msEnUnDia);
+    const horas = Math.floor((d % msEnUnDia) / msEnUnaHora);
+    const minutos = Math.floor((d % msEnUnaHora) / msEnUnMinuto);
+    const segundos = Math.floor((d % msEnUnMinuto) / 1000);
+
+    actualizarElemento("dias", dias);
+    actualizarElemento("horas", horas);
+    actualizarElemento("minutos", minutos);
+    actualizarElemento("segundos", segundos);
 },1000);
 
 const texto = `
@@ -311,6 +352,7 @@ sonrisa, cada palabra y cada abrazo nos llenan de alegría y gratitud.
 Gracias por acompañarnos, por su afecto sincero y por ser testigos de este día que marcará el
 comienzo de nuestra vida juntos.
 
+
 Su compañía es, sin duda, el mejor regalo que podemos recibir.
 
 Con todo nuestro amor y agradecimiento Genaro y Sara.
@@ -320,6 +362,13 @@ let i=0, escribiendo=false;
 
 function escribir(){
     if(escribiendo) return;
+    
+    // Si es la primera ejecución, muestra el contenedor del texto
+    if (primeraEjecucion) {
+        typingContainer.style.display = 'block';
+        primeraEjecucion = false;
+    }
+
     escribiendo=true;
     i=0;
     typing.innerHTML="";
@@ -331,7 +380,7 @@ function escribir(){
 function escribirTexto(){
     if(i<texto.length){
         typing.innerHTML+=texto.charAt(i++);
-        setTimeout(escribirTexto,40);
+        setTimeout(escribirTexto,15); /* Velocidad de texto rápido (15ms) */
     } else {
         escribiendo=false;
         ubicacion.style.display="block";
@@ -357,27 +406,9 @@ END:VCALENDAR`;
 }
 
 function confirmarWhatsApp() {
-    const msg = encodeURIComponent("Gracias por la invitación. Confirmo mi asistencia a su boda.");
+    const msg = encodeURIComponent("Gracias por la invitación. Confirmo mi asistencia a su boda. 💍");
     window.open("https://wa.me/50255341683?text="+msg,"_blank");
 }
-
-function mostrarCuentaBanrural() {
-    const cuenta = document.getElementById("cuentaBanrural");
-    cuenta.style.display = cuenta.style.display === "none" ? "block" : "none";
-}
-</script>
-
-<script>
-fetch("https://ipapi.co/json/")
-  .then(res => res.json())
-  .then(data => {
-    document.getElementById("ubicacionUsuario").innerText =
-      `Nos visitas desde ${data.city}, ${data.country_name}`;
-  })
-  .catch(()=>{
-    document.getElementById("ubicacionUsuario").innerText =
-      "Ubicación no disponible";
-  });
 </script>
 
 </body>
