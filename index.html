@@ -2,7 +2,6 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Cuenta Regresiva</title>
 
 <style>
@@ -24,7 +23,6 @@ body {
     letter-spacing: 4px;
     color: #f7e087;
     margin: 0;
-    text-shadow: 0 0 8px #d4af37;
 }
 
 .titulo-principal p {
@@ -38,7 +36,7 @@ body {
 /* ==================== SLIDER ==================== */
 .slider {
     width: 360px;
-    aspect-ratio: 1 / 1;
+    height: 360px;
     margin: auto;
     overflow: hidden;
     border-radius: 18px;
@@ -50,20 +48,21 @@ body {
     display: flex;
     width: 500%;
     animation: slideAuto 25s infinite ease-in-out;
+    transform: translateX(0);
 }
 
 .slide img {
-    width: 100%;
-    height: 100%;
+    width: 360px;
+    height: 360px;
     object-fit: cover;
 }
 
 @keyframes slideAuto {
-    0%,12% { margin-left: 0; }
-    17%,32% { margin-left: -100%; }
-    37%,52% { margin-left: -200%; }
-    57%,72% { margin-left: -300%; }
-    77%,100% { margin-left: -400%; }
+    0%,12%   { transform: translateX(0%); }
+    17%,32%  { transform: translateX(-20%); }
+    37%,52%  { transform: translateX(-40%); }
+    57%,72%  { transform: translateX(-60%); }
+    77%,100% { transform: translateX(-80%); }
 }
 
 /* ================= TEXTO ================= */
@@ -71,6 +70,7 @@ body {
     max-width: 900px;
     margin: 45px auto 25px;
     padding: 20px;
+    text-align: left;
 }
 
 #typing {
@@ -85,7 +85,6 @@ body {
     justify-content: center;
     gap: 15px;
     margin-top: 20px;
-    flex-wrap: wrap;
 }
 
 .item {
@@ -157,8 +156,8 @@ body {
 }
 
 #qr-box {
-    width: 100%;
-    aspect-ratio: 1 / 1;
+    width: 360px;
+    height: 360px;
     border: 5px solid #d4af37;
     border-radius: 20px;
     box-shadow: 0 0 10px #d4af37, 0 0 20px #f7e087;
@@ -210,18 +209,6 @@ body {
     font-size: 28px;
     margin-bottom: 10px;
 }
-
-/* ================= RESPONSIVE ================= */
-@media (max-width: 768px) {
-    .slider, #ubicacion { width: 90%; }
-    .item { width: 45%; }
-    #typing { font-size: 16px; }
-}
-
-@media (max-width: 480px) {
-    .item { width: 100%; }
-    .titulo-principal h1 { font-size: 26px; }
-}
 </style>
 </head>
 
@@ -229,7 +216,7 @@ body {
 
 <div class="titulo-principal">
     <h1>Genaro & Sara</h1>
-    <p>Celebramos el Sacramento del Matrimonio</p>
+    <p>Celebramos el Matrimonio</p>
 </div>
 
 <div class="slider">
@@ -309,20 +296,24 @@ setInterval(()=>{
 },1000);
 
 const texto = `
-Agradecemos profundamente el cariño, la amistad y el apoyo que siempre nos han brindado a lo largo de nuestras vidas.
+Agradecemos profundamente el cariño, la amistad y el apoyo que siempre nos han brindado a lo
+largo de nuestras vidas.
 
-Cada uno de ustedes ha formado parte de nuestra historia, y por eso, no podríamos imaginar este día tan importante sin su presencia.
+Cada uno de ustedes ha formado parte de nuestra historia, y por eso, no podríamos imaginar este
+día tan importante sin su presencia.
 
-Hoy celebramos el amor, la unión y el inicio de una nueva etapa, rodeados de las personas que más queremos.
+Hoy celebramos el amor, la unión y el inicio de una nueva etapa, rodeados de las personas que más
+queremos.
 
-Compartir este momento con ustedes hace que nuestro sueño sea aún más especial, porque cada sonrisa, cada palabra y cada abrazo nos llenan de alegría y gratitud.
+Compartir este momento con ustedes hace que nuestro sueño sea aún más especial, porque cada
+sonrisa, cada palabra y cada abrazo nos llenan de alegría y gratitud.
 
-Gracias por acompañarnos, por su afecto sincero y por ser testigos de este día que marcará el comienzo de nuestra vida juntos.
+Gracias por acompañarnos, por su afecto sincero y por ser testigos de este día que marcará el
+comienzo de nuestra vida juntos.
 
 Su compañía es, sin duda, el mejor regalo que podemos recibir.
 
-Con todo nuestro amor y agradecimiento
-Genaro y Sara.
+Con todo nuestro amor y agradecimiento Genaro y Sara.
 `;
 
 let i=0, escribiendo=false;
