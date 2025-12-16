@@ -2,6 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Cuenta Regresiva</title>
 
 <style>
@@ -23,6 +24,7 @@ body {
     letter-spacing: 4px;
     color: #f7e087;
     margin: 0;
+    text-shadow: 0 0 8px #d4af37;
 }
 
 .titulo-principal p {
@@ -36,7 +38,7 @@ body {
 /* ==================== SLIDER ==================== */
 .slider {
     width: 360px;
-    height: 360px;
+    aspect-ratio: 1 / 1;
     margin: auto;
     overflow: hidden;
     border-radius: 18px;
@@ -51,8 +53,8 @@ body {
 }
 
 .slide img {
-    width: 360px;
-    height: 360px;
+    width: 100%;
+    height: 100%;
     object-fit: cover;
 }
 
@@ -69,7 +71,6 @@ body {
     max-width: 900px;
     margin: 45px auto 25px;
     padding: 20px;
-    text-align: left;
 }
 
 #typing {
@@ -84,6 +85,7 @@ body {
     justify-content: center;
     gap: 15px;
     margin-top: 20px;
+    flex-wrap: wrap;
 }
 
 .item {
@@ -144,13 +146,19 @@ body {
 #ubicacion h2 {
     font-size: 26px;
     letter-spacing: 3px;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
     color: #f7e087;
 }
 
+#ubicacionUsuario {
+    margin-bottom: 15px;
+    font-size: 14px;
+    color: #ccc;
+}
+
 #qr-box {
-    width: 360px;
-    height: 360px;
+    width: 100%;
+    aspect-ratio: 1 / 1;
     border: 5px solid #d4af37;
     border-radius: 20px;
     box-shadow: 0 0 10px #d4af37, 0 0 20px #f7e087;
@@ -164,7 +172,7 @@ body {
 }
 
 /* ================= BOTONES ================= */
-#calendarBtn, #whatsappBtn {
+#calendarBtn, #whatsappBtn, #banruralBtn {
     margin-top: 15px;
     background: none;
     border: 2px solid #d4af37;
@@ -177,7 +185,7 @@ body {
     transition: all .25s ease;
 }
 
-#calendarBtn:hover, #whatsappBtn:hover {
+#calendarBtn:hover, #whatsappBtn:hover, #banruralBtn:hover {
     background: #d4af37;
     color: black;
     transform: scale(1.03);
@@ -202,18 +210,28 @@ body {
     font-size: 28px;
     margin-bottom: 10px;
 }
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 768px) {
+    .slider, #ubicacion { width: 90%; }
+    .item { width: 45%; }
+    #typing { font-size: 16px; }
+}
+
+@media (max-width: 480px) {
+    .item { width: 100%; }
+    .titulo-principal h1 { font-size: 26px; }
+}
 </style>
 </head>
 
 <body>
 
-<!-- TÍTULO -->
 <div class="titulo-principal">
     <h1>Genaro & Sara</h1>
     <p>Celebramos el Sacramento del Matrimonio</p>
 </div>
 
-<!-- SLIDER -->
 <div class="slider">
     <div class="slides">
         <div class="slide"><img src="https://res.cloudinary.com/dwhywqylf/image/upload/v1765552185/WhatsApp_Image_2025-12-10_at_11.32.17_AM_l5q6dn.jpg"></div>
@@ -224,14 +242,12 @@ body {
     </div>
 </div>
 
-<!-- TEXTO -->
 <div class="typing-container">
     <p id="typing"></p>
 </div>
 
 <h1>Cuenta Regresiva</h1>
 
-<!-- CONTADOR -->
 <div class="contador-box">
     <div class="item"><span id="dias" class="num">0</span><div class="label">Días</div></div>
     <div class="item"><span id="horas" class="num">0</span><div class="label">Horas</div></div>
@@ -239,15 +255,14 @@ body {
     <div class="item"><span id="segundos" class="num">0</span><div class="label">Seg</div></div>
 </div>
 
-<!-- BOTÓN CORAZÓN -->
 <div class="btn-area">
     <span>Presiona el corazón</span><br>
     <button id="restartBtn">🤍</button>
 </div>
 
-<!-- UBICACIÓN -->
 <div id="ubicacion">
     <h2>UBICACIÓN</h2>
+    <p id="ubicacionUsuario"></p>
     <div id="qr-box">
         <img src="https://res.cloudinary.com/dwhywqylf/image/upload/v1765577026/image_11_jx1ags.jpg">
     </div>
@@ -255,11 +270,14 @@ body {
     <button id="whatsappBtn" onclick="confirmarWhatsApp()">🟢 Confirmar asistencia por WhatsApp</button>
 </div>
 
-<!-- REGALO -->
 <div id="regalo">
     <img src="https://cdn-icons-png.flaticon.com/512/2541/2541988.png">
     <h3>Regalo</h3>
     <p>Si deseas hacernos un obsequio o apoyarnos con algo, agradecemos de todo corazón que sea en efectivo.</p>
+    <button id="banruralBtn" onclick="mostrarCuentaBanrural()">💳 Cuenta Banrural</button>
+    <p id="cuentaBanrural" style="display:none; margin-top:15px; font-size:18px;">
+        <strong>No. de cuenta:</strong> 3242000714
+    </p>
 </div>
 
 <script>
@@ -291,25 +309,20 @@ setInterval(()=>{
 },1000);
 
 const texto = `
-Agradecemos profundamente el cariño, la amistad y el apoyo que siempre nos han brindado a lo
-largo de nuestras vidas.
+Agradecemos profundamente el cariño, la amistad y el apoyo que siempre nos han brindado a lo largo de nuestras vidas.
 
-Cada uno de ustedes ha formado parte de nuestra historia, y por eso, no podríamos imaginar este
-día tan importante sin su presencia.
+Cada uno de ustedes ha formado parte de nuestra historia, y por eso, no podríamos imaginar este día tan importante sin su presencia.
 
-Hoy celebramos el amor, la unión y el inicio de una nueva etapa, rodeados de las personas que más
-queremos.
+Hoy celebramos el amor, la unión y el inicio de una nueva etapa, rodeados de las personas que más queremos.
 
-Compartir este momento con ustedes hace que nuestro sueño sea aún más especial, porque cada
-sonrisa, cada palabra y cada abrazo nos llenan de alegría y gratitud.
+Compartir este momento con ustedes hace que nuestro sueño sea aún más especial, porque cada sonrisa, cada palabra y cada abrazo nos llenan de alegría y gratitud.
 
-Gracias por acompañarnos, por su afecto sincero y por ser testigos de este día que marcará el
-comienzo de nuestra vida juntos.
-
+Gracias por acompañarnos, por su afecto sincero y por ser testigos de este día que marcará el comienzo de nuestra vida juntos.
 
 Su compañía es, sin duda, el mejor regalo que podemos recibir.
 
-Con todo nuestro amor y agradecimiento Genaro y Sara.
+Con todo nuestro amor y agradecimiento
+Genaro y Sara.
 `;
 
 let i=0, escribiendo=false;
@@ -356,6 +369,24 @@ function confirmarWhatsApp() {
     const msg = encodeURIComponent("Gracias por la invitación. Confirmo mi asistencia a su boda.");
     window.open("https://wa.me/50255341683?text="+msg,"_blank");
 }
+
+function mostrarCuentaBanrural() {
+    const cuenta = document.getElementById("cuentaBanrural");
+    cuenta.style.display = cuenta.style.display === "none" ? "block" : "none";
+}
+</script>
+
+<script>
+fetch("https://ipapi.co/json/")
+  .then(res => res.json())
+  .then(data => {
+    document.getElementById("ubicacionUsuario").innerText =
+      `Nos visitas desde ${data.city}, ${data.country_name}`;
+  })
+  .catch(()=>{
+    document.getElementById("ubicacionUsuario").innerText =
+      "Ubicación no disponible";
+  });
 </script>
 
 </body>
